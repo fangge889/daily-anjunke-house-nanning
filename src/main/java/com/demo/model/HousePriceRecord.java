@@ -123,6 +123,12 @@ public class HousePriceRecord {
 	} 
 	
 	
+	public String getAreaName() {
+		return areaName;
+	}
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
 	public HousePriceRecord(String name, String address, String state, String describe, String price,String areaName) {
 		super();
 		this.name = name;

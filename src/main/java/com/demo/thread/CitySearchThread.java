@@ -1,10 +1,13 @@
 package com.demo.thread;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
+ 
 import com.demo.utils.DataList;
 import com.demo.utils.HttpUtils;
 
@@ -15,8 +18,12 @@ import com.demo.utils.HttpUtils;
  */
 public class CitySearchThread extends Thread {
 	public void run() {
+		Properties prop = new Properties();
+		String anjukeUrl = "https://www.anjuke.com/sy-city.html";
+		String nanningUrl = "https://nanning.anjuke.com";		
+		
 		String result = null;
-		result = HttpUtils.CreatHttpGet("https://www.anjuke.com/sy-city.html");
+		result = HttpUtils.CreatHttpGet(anjukeUrl);
 		if (result != null) {
 			try {
 				Document doc = Jsoup.parse(result);
@@ -31,7 +38,7 @@ public class CitySearchThread extends Thread {
 						Element cityElement = cityElements.get(j);
 						String url = cityElement.absUrl("href");
 						synchronized (DataList.cityList) {
-							if("https://nanning.anjuke.com".equals(url)) {
+							if(nanningUrl.equals(url)) {
 								DataList.cityList.add(url);
 								if (DataList.cityList.size() == 1) {
 									DataList.cityList.notifyAll();

@@ -46,14 +46,14 @@ public class DemoController {
 			 String createTime = housePriceRecord.getCreateTime().substring(0, 10);
 			 String nowTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			 //今天没有抓取，执行抓取
-			 if(!createTime.equals(nowTime)) { 
+			 //if(!createTime.equals(nowTime)) { 
 				 System.out.println("今天没有抓取，开始执行！");
 				 new CitySearchThread().start();
 				 new DistrictSearchThread().start();
 				 new HouseSearchThread().start();
-			 }else {
+			 //}else {
 				 System.out.println("今天已抓取，不执行！");
-			 }
+			 //}
 		}
 	}
 
