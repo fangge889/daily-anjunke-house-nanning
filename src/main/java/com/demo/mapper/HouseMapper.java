@@ -20,7 +20,7 @@ public interface HouseMapper {
 	 public HousePriceRecord findHousePriceRecordToday();
 	 
 	 //添加每天房价记录
-	 @Insert("insert into house_price_record values(null,#{name}, #{address}, #{state}, #{describe}, #{price},now(),#{areaId})")
+	 @Insert("insert into house_price_record values(null,#{name}, #{address}, #{state}, #{describe}, #{price},now(),#{areaName})")
 	 public int addHousePriceRecord(HousePriceRecord house);
 	 
 	 //查询单个楼盘房价记录
