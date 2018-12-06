@@ -11,7 +11,7 @@
 <body>
 	<!--   折线统计图 -->
 	<div class="row">
-		<div id="main" style="width: 900px; height: 350px; margin-top: 80px;"></div>
+		<div id="main" style="width: 1800px; height: 350px; margin-top: 80px;"></div>
 	</div>
 
 	<script type="text/javascript">

@@ -115,7 +115,7 @@ public class DemoController {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession(true);
 		HouseMapper mapper = sqlSession.getMapper(HouseMapper.class);
 		 
-        List<String> dayList = testDay(15);
+        List<String> dayList = testDay(30);
         Collections.sort(dayList); 
         
         EnhancedOption option = new EnhancedOption();
@@ -131,14 +131,16 @@ public class DemoController {
                
         option.xAxis(new CategoryAxis().boundaryGap(false).data(dayList.get(0),dayList.get(1),dayList.get(2),dayList.get(3),
         		dayList.get(4),dayList.get(5),dayList.get(6),dayList.get(7),dayList.get(8),dayList.get(9),dayList.get(10),
-        		dayList.get(11),dayList.get(12),dayList.get(13),dayList.get(14)));
+        		dayList.get(11),dayList.get(12),dayList.get(13),dayList.get(14),dayList.get(15),dayList.get(16),dayList.get(17),dayList.get(18),
+        		dayList.get(19),dayList.get(20),dayList.get(21),dayList.get(22),dayList.get(23),dayList.get(24),dayList.get(25),
+        		dayList.get(26),dayList.get(27),dayList.get(28),dayList.get(29)));
         
         option.yAxis(new ValueAxis());
 
         Line line = new Line("价格走势");
         line.smooth(true).itemStyle().normal().areaStyle().typeDefault();
         
-        List<HousePriceRecord> list = mapper.findRecordList(name,15);
+        List<HousePriceRecord> list = mapper.findRecordList(name,30);
         List<Integer> priceList = new ArrayList<>();
         Pattern pattern = Pattern.compile("[0-9]*"); 
         
@@ -189,6 +191,71 @@ public class DemoController {
         } else if(priceList.size() == 15) {
         	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14));
+        } else if(priceList.size() == 16) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15));
+        } else if(priceList.size() == 17) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16));
+        } else if(priceList.size() == 18) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17));
+        } else if(priceList.size() == 19) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18));
+        } else if(priceList.size() == 20) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19));
+        } else if(priceList.size() == 21) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20));
+        } else if(priceList.size() == 22) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21));
+        } else if(priceList.size() == 23) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22));
+        } else if(priceList.size() == 24) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23));
+        } else if(priceList.size() == 25) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24));
+        } else if(priceList.size() == 26) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24),priceList.get(25));
+        } else if(priceList.size() == 27) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24),priceList.get(25),priceList.get(26));
+        } else if(priceList.size() == 28) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24),priceList.get(25),priceList.get(26),priceList.get(27));
+        } else if(priceList.size() == 29) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24),priceList.get(25),priceList.get(26),priceList.get(27),priceList.get(28));
+        } else if(priceList.size() == 30) {
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14),priceList.get(15)
+        			,priceList.get(16),priceList.get(17),priceList.get(18),priceList.get(19),priceList.get(20),priceList.get(21),priceList.get(22),priceList.get(23)
+        			,priceList.get(24),priceList.get(25),priceList.get(26),priceList.get(27),priceList.get(28),priceList.get(29));
         } 
         
         option.series(line);
