@@ -24,8 +24,8 @@ public interface HouseMapper {
 	 public int addHousePriceRecord(HousePriceRecord house);
 	 
 	 //查询单个楼盘房价记录
-	 @Select("select * from house_price_record where name =#{name} ")
-	 public List<HousePriceRecord> findRecordList(String name);
+	 @Select("select * from house_price_record where name =#{name} ORDER BY createTime DESC LIMIT #{day}")
+	 public List<HousePriceRecord> findRecordList(@Param("name")String name,@Param("day")Integer day);
 	 
 	 //查询所有楼盘名称
 	 @Select("select * from house_price_record GROUP BY name ORDER BY substring(SUBSTRING_INDEX(price,'元',1), 3)  asc ")

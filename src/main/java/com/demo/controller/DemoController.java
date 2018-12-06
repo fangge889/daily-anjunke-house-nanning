@@ -135,10 +135,10 @@ public class DemoController {
         
         option.yAxis(new ValueAxis());
 
-        Line l1 = new Line("价格走势");
-        l1.smooth(true).itemStyle().normal().areaStyle().typeDefault();
+        Line line = new Line("价格走势");
+        line.smooth(true).itemStyle().normal().areaStyle().typeDefault();
         
-        List<HousePriceRecord> list = mapper.findRecordList(name);
+        List<HousePriceRecord> list = mapper.findRecordList(name,15);
         List<Integer> priceList = new ArrayList<>();
         Pattern pattern = Pattern.compile("[0-9]*"); 
         
@@ -153,45 +153,45 @@ public class DemoController {
         }  
         
         if(priceList.size() == 1) {
-        	l1.data(priceList.get(0));
+        	line.data(priceList.get(0));
         } else if(priceList.size() == 2) {
-        	l1.data(priceList.get(0),priceList.get(1));
+        	line.data(priceList.get(0),priceList.get(1));
         } else if(priceList.size() == 3) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2));
         } else if(priceList.size() == 4) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3));
         } else if(priceList.size() == 5) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4));
         } else if(priceList.size() == 6) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5));
         } else if(priceList.size() == 7) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6));
         } else if(priceList.size() == 8) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7));
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7));
         } else if(priceList.size() == 9) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8));
         } else if(priceList.size() == 10) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9));
         } else if(priceList.size() == 11) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10));
         } else if(priceList.size() == 12) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11));
         } else if(priceList.size() == 13) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12));
         } else if(priceList.size() == 14) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13));
         } else if(priceList.size() == 15) {
-        	l1.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
+        	line.data(priceList.get(0),priceList.get(1),priceList.get(2),priceList.get(3),priceList.get(4),priceList.get(5),priceList.get(6),priceList.get(7)
         			,priceList.get(8),priceList.get(9),priceList.get(10),priceList.get(11),priceList.get(12),priceList.get(13),priceList.get(14));
         } 
         
-        option.series(l1);
+        option.series(line);
 		 
         model.addAttribute("option", option);
 		return "nameInfo";
