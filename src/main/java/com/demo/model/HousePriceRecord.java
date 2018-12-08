@@ -13,8 +13,16 @@ public class HousePriceRecord {
 	private int isPrice;
 	private int isChangePrice;
 	private int isChange7DayPrice;
-	private String areaName; 
+	private String areaName;  
+	private String averagePrice;
+	
 		
+	public String getAveragePrice() {
+		return averagePrice;
+	}
+	public void setAveragePrice(String averagePrice) {
+		this.averagePrice = averagePrice;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -147,7 +155,8 @@ public class HousePriceRecord {
 		return "HousePriceRecord [id=" + id + ", name=" + name + ", address=" + address + ", state=" + state
 				+ ", describe=" + describe + ", price=" + price + ", endPrice=" + endPrice + ", createTime="
 				+ createTime + ", endTime=" + endTime + ", isPrice=" + isPrice + ", isChangePrice=" + isChangePrice
-				+ ", isChange7DayPrice=" + isChange7DayPrice + ", areaName=" + areaName + "]";
+				+ ", isChange7DayPrice=" + isChange7DayPrice + ", areaName=" + areaName + ", averagePrice="
+				+ averagePrice + "]";
 	}
 	
 }

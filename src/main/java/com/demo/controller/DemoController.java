@@ -1,6 +1,7 @@
 package com.demo.controller;
  
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,13 +12,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.demo.mapper.HouseMapper;
 import com.demo.model.HousePriceRecord;
@@ -37,27 +38,31 @@ import com.github.abel533.echarts.util.EnhancedOption;
 @Controller
 public class DemoController {
 	 
-	@RequestMapping(value = "/test/start", method = RequestMethod.GET)
-	public void index() {
+	@RequestMapping(value = "/test/start")
+	public void index(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSession(true);
 		HouseMapper mapper = sqlSession.getMapper(HouseMapper.class);
 		HousePriceRecord housePriceRecord = mapper.findHousePriceRecordToday();
+		String msg ="今天已抓取，不执行！";
 		if(null != housePriceRecord && StringUtils.isNotBlank(housePriceRecord.getCreateTime())) {
 			 String createTime = housePriceRecord.getCreateTime().substring(0, 10);
 			 String nowTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			 //今天没有抓取，执行抓取
-			 //if(!createTime.equals(nowTime)) { 
-				 System.out.println("今天没有抓取，开始执行！");
+			 if(!createTime.equals(nowTime)) { 
+				 msg ="今天没有抓取，开始执行！";
 				 new CitySearchThread().start();
 				 new DistrictSearchThread().start();
 				 new HouseSearchThread().start();
-			 //}else {
-				 System.out.println("今天已抓取，不执行！");
-			 //}
+			 } 
 		}
+		PrintWriter out;
+		response.setContentType("text/json;charset=UTF-8");
+		out = response.getWriter();
+		response.getWriter().write(msg);
+		out.close();
 	}
 
-	@RequestMapping(value = "/test/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/test/list")
 	public String nameList(Model model,HttpServletRequest request) {	 
 		
 		SqlSession sqlSession = MyBatisUtil.getSqlSession(true);
@@ -70,7 +75,12 @@ public class DemoController {
 			String price =h.getPrice(); 
 	    	price = price.substring(2, price.length()); 
 	    	String[] priceArry = price.split("元"); 
-	    	Matcher isNum = pattern.matcher(priceArry[0]);
+	    	String prices = priceArry[0];
+	    	String pricess = prices.substring(prices.length()-1, prices.length());
+	    	if(pricess.equals("套") || pricess.equals("万")) {
+	    		prices = pricess;
+	    	}
+	    	Matcher isNum = pattern.matcher(prices);
 		    if( isNum.matches() ){
 			   h.setIsPrice(1);
 		    }else {
@@ -103,12 +113,35 @@ public class DemoController {
 		    	}
 		    }
 		}
-		
+		 
+	    	List<HousePriceRecord> areaList = new ArrayList<>(); 
+			List<String> areaNameList = mapper.findAreaList();
+			for(String area:areaNameList) {
+				HousePriceRecord housePriceRecord = new HousePriceRecord();
+				housePriceRecord.setAreaName(area);
+				
+				Integer averagePriceSum = 0;
+				List<HousePriceRecord> areaRecordList = mapper.findAreaRecordList(area);
+				for(HousePriceRecord h:areaRecordList) {
+		        	String price =h.getPrice(); 
+		        	price = price.substring(2, price.length()); 
+		        	String[] priceArry = price.split("元"); 
+		        	Matcher isNum = pattern.matcher(priceArry[0]);
+		    	   if( isNum.matches() ){
+		    		   averagePriceSum = averagePriceSum + Integer.parseInt(priceArry[0]);
+		    	   }  
+		        }  
+				Integer averagePrice = averagePriceSum/areaRecordList.size();
+				housePriceRecord.setAveragePrice(averagePrice.toString());
+				areaList.add(housePriceRecord);
+			}
+			
+		model.addAttribute("areaList", areaList);
         model.addAttribute("list", list);
 		return "list";
 	}
 	
-	@RequestMapping(value = "/test/info", method = RequestMethod.GET)
+	@RequestMapping(value = "/test/info")
 	public String nameInfo(Model model,HttpServletRequest request) {		
 		String name = request.getParameter("name");
 		
@@ -309,5 +342,56 @@ public class DemoController {
         String result = format.format(today); 
         return result;
     }
+    
+    @RequestMapping(value = "/test/areaList")
+	public String areaList(Model model,HttpServletRequest request) {	 
+    	String areaName = request.getParameter("areaName");
+		SqlSession sqlSession = MyBatisUtil.getSqlSession(true);
+		HouseMapper mapper = sqlSession.getMapper(HouseMapper.class);
+		List<HousePriceRecord> list = mapper.findHouseNameListByarea(areaName); 
+		 
+		Pattern pattern = Pattern.compile("[0-9]*"); 
+		for(HousePriceRecord h:list) {
+			//是否有历史价格
+			String price =h.getPrice(); 
+	    	price = price.substring(2, price.length()); 
+	    	String[] priceArry = price.split("元"); 
+	    	Matcher isNum = pattern.matcher(priceArry[0]);
+		    if( isNum.matches() ){
+			   h.setIsPrice(1);
+		    }else {
+		       h.setIsPrice(0);
+		    }  
+		    
+		    //最近两次价格是否有变化
+		    if(h.getIsPrice() == 1) {
+		    	List<HousePriceRecord> priceList = mapper.findPriceList(h.getName());
+		    	if(priceList.size() == 2) {
+		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(1).getPrice())) {
+		    			h.setIsChangePrice(0);
+		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(1).getPrice())){
+		    			h.setIsChangePrice(1);
+		    		}else {
+		    			h.setIsChangePrice(2);
+		    		}
+		    	}
+		    	
+		    	//最近两次价格是否有变化
+		    	mapper.findPrice7DayList(h.getName());
+		    	if(priceList.size() == 7) {
+		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(6).getPrice())) {
+		    			h.setIsChange7DayPrice(0);
+		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(6).getPrice())){
+		    			h.setIsChange7DayPrice(1);
+		    		}else {
+		    			h.setIsChange7DayPrice(2);
+		    		}
+		    	}
+		    }
+		}
+		 
+        model.addAttribute("list", list);
+		return "areaInfo";
+	}
 	 
 }

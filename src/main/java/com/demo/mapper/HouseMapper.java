@@ -60,4 +60,17 @@ public interface HouseMapper {
 	 @Select("select * from house_price_record ")
 	 public List<HousePriceRecord> findAllRecordList();
 	  
+	//查询今天各区楼盘记录
+	@Select("SELECT * from house_price_record where areaName =#{areaName} and DATE_FORMAT(createTime,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d')  and price != '售价待定'")
+	public List<HousePriceRecord> findAreaRecordList(String areaName);
+	
+	//查询所有区
+	@Select("SELECT areaName from house_price_record GROUP BY areaName")
+	public List<String> findAreaList();
+	
+	//查询各区楼盘
+	@Select("select * from house_price_record where areaName =#{areaName} GROUP BY name ORDER BY substring(SUBSTRING_INDEX(price,'元',1), 3)  asc ")
+	public List<HousePriceRecord> findHouseNameListByarea(String areaName);
+	
+	
 }

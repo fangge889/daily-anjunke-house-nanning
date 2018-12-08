@@ -7,27 +7,8 @@
 	<script type="text/javascript"
 		src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 
-	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
-	<div class="form-group"> 
-			<span class="glyphicon glyphicon-search"><a href="/test/start">抓取数据 </a><span> 
-	</div>
+	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script> 
 <body> 
-
-<table border="1" cellpadding="10" cellspacing="0">  
-            <tr>  
-                <th>区域</th>  
-                <th>今日平均价格</th>   
-                <th>操作</th>
-            </tr>   
-            <c:forEach items="${areaList}" var="areaHouse">  
-                <tr>   
-                    <td>${areaHouse.areaName }</td>
-                    <td>${areaHouse.averagePrice }</td>  
-                    <td><a onclick="viewArea('${areaHouse.areaName}');">查看各区列表</a></td>
-                </tr>  
-            </c:forEach>  
-        </table>   
-</br>
  <table border="1" cellpadding="10" cellspacing="0">  
             <tr>  
                 <th>名称</th>  
@@ -75,13 +56,12 @@
         </table>   
 </body>
 	<script type="text/javascript">  
+
+		 
 		
-		function view(name) { 
-			window.open("/test/info?name="+name);
-		} 
-		
-		function viewArea(name) { 
-			window.open("/test/areaList?areaName="+name);
+		function view(name) {
+			//window.location.href= "localhost:8080/test/info?name="+name;
+			window.open("localhost:8080/test/info?name="+name);
 		}
 	</script>
 </html>
