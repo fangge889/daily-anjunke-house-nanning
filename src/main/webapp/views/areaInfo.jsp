@@ -60,8 +60,7 @@
 		 
 		
 		function view(name) {
-			//window.location.href= "localhost:8080/test/info?name="+name;
-			window.open("localhost:8080/test/info?name="+name);
+			window.open("/test/info?name="+name);
 		}
 	</script>
 </html>
