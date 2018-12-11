@@ -91,13 +91,19 @@ public class DemoController {
 		    if(h.getIsPrice() == 1) {
 		    	List<HousePriceRecord> priceList = mapper.findPriceList(h.getName());
 		    	if(priceList.size() == 2) {
-		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(1).getPrice())) {
-		    			h.setIsChangePrice(0);
-		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(1).getPrice())){
-		    			h.setIsChangePrice(1);
-		    		}else {
-		    			h.setIsChangePrice(2);
-		    		}
+		    		String price1 = priceList.get(0).getPrice();
+		    		String price2 = priceList.get(1).getPrice(); 
+		            Matcher isNum1 = pattern.matcher(price1);
+		            Matcher isNum2 = pattern.matcher(price2);
+		    		if(isNum1.matches() && isNum2.matches()) {
+		    			if(Integer.parseInt(price1) == Integer.parseInt(price2)) {
+			    			h.setIsChangePrice(0);
+			    		}else if(Integer.parseInt(price1) > Integer.parseInt(price2)){
+			    			h.setIsChangePrice(1);
+			    		}else {
+			    			h.setIsChangePrice(2);
+			    		}
+		    		} 
 		    	}
 		    	
 		    	//最近两次价格是否有变化
@@ -367,13 +373,19 @@ public class DemoController {
 		    if(h.getIsPrice() == 1) {
 		    	List<HousePriceRecord> priceList = mapper.findPriceList(h.getName());
 		    	if(priceList.size() == 2) {
-		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(1).getPrice())) {
-		    			h.setIsChangePrice(0);
-		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(1).getPrice())){
-		    			h.setIsChangePrice(1);
-		    		}else {
-		    			h.setIsChangePrice(2);
-		    		}
+		    		String price1 = priceList.get(0).getPrice();
+		    		String price2 = priceList.get(1).getPrice(); 
+		            Matcher isNum1 = pattern.matcher(price1);
+		            Matcher isNum2 = pattern.matcher(price2);
+		            if(isNum1.matches() && isNum2.matches()) {
+			    		if(Integer.parseInt(price1) == Integer.parseInt(price2)) {
+			    			h.setIsChangePrice(0);
+			    		}else if(Integer.parseInt(price1) > Integer.parseInt(price2)){
+			    			h.setIsChangePrice(1);
+			    		}else {
+			    			h.setIsChangePrice(2);
+			    		}
+		            }
 		    	}
 		    	
 		    	//最近两次价格是否有变化
