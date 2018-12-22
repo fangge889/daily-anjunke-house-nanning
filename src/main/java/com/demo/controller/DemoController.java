@@ -107,11 +107,11 @@ public class DemoController {
 		    	}
 		    	
 		    	//最近两次价格是否有变化
-		    	mapper.findPrice7DayList(h.getName());
-		    	if(priceList.size() == 7) {
-		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(6).getPrice())) {
+		    	mapper.findPrice30DayList(h.getName());
+		    	if(priceList.size() >= 30) {
+		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(29).getPrice())) {
 		    			h.setIsChange7DayPrice(0);
-		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(6).getPrice())){
+		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(29).getPrice())){
 		    			h.setIsChange7DayPrice(1);
 		    		}else {
 		    			h.setIsChange7DayPrice(2);
@@ -389,11 +389,11 @@ public class DemoController {
 		    	}
 		    	
 		    	//最近两次价格是否有变化
-		    	mapper.findPrice7DayList(h.getName());
-		    	if(priceList.size() == 7) {
-		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(6).getPrice())) {
+		    	mapper.findPrice30DayList(h.getName());
+		    	if(priceList.size() >= 30) {
+		    		if(Integer.parseInt(priceList.get(0).getPrice()) == Integer.parseInt(priceList.get(29).getPrice())) {
 		    			h.setIsChange7DayPrice(0);
-		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(6).getPrice())){
+		    		}else if(Integer.parseInt(priceList.get(0).getPrice()) > Integer.parseInt(priceList.get(29).getPrice())){
 		    			h.setIsChange7DayPrice(1);
 		    		}else {
 		    			h.setIsChange7DayPrice(2);

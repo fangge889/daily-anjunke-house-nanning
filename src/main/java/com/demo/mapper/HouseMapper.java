@@ -53,8 +53,8 @@ public interface HouseMapper {
 	 
 	//最近7天价格是否有变化
 	@Select("SELECT substring(SUBSTRING_INDEX(price,'元',1), 3) as price from house_price_record where name= #{name} "+ 
-			" and createTime between DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 8 Day),'%Y-%m-%d')  and DATE_ADD(DATE_FORMAT(NOW(),'%Y-%m-%d'),INTERVAL 1 Day)  ORDER BY createTime DESC ") 
-	public List<HousePriceRecord> findPrice7DayList(String name);
+			" and createTime between DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 30 Day),'%Y-%m-%d')  and DATE_ADD(DATE_FORMAT(NOW(),'%Y-%m-%d'),INTERVAL 1 Day)  ORDER BY createTime DESC ") 
+	public List<HousePriceRecord> findPrice30DayList(String name);
 	 
 	 //查询所有楼盘房价记录
 	 @Select("select * from house_price_record ")

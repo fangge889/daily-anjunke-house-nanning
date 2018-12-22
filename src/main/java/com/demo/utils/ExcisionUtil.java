@@ -117,23 +117,26 @@ public class ExcisionUtil {
 				Element favorposElement = element.getElementsByClass("favor-pos").first();
 				Element pElement = favorposElement.getElementsByTag("p").first();
 				price = pElement.text();
+			
+			
+			
+				String adddress = address.substring(2, address.length()); 
+				String  arrys = adddress.substring(0,1);
+				String areaName = "";
+				if(arrys.equals("西")) {
+					areaName = adddress.substring(0, 3);
+				}else {
+					areaName = adddress.substring(0, 2);
+				} 
+										
+				if(name != null) {
+					HousePriceRecord house = new HousePriceRecord(name, address, state, describe, price,areaName);
+					resultList.add(house);
+				}	
 			}catch(Exception e) {
+				System.out.println(address);
+				e.printStackTrace();
 			}
-			
-			
-			String adddress = address.substring(2, address.length()); 
-			String  arrys = adddress.substring(0,1);
-			String areaName = "";
-			if(arrys.equals("西")) {
-				areaName = adddress.substring(0, 3);
-			}else {
-				areaName = adddress.substring(0, 2);
-			} 
-									
-			if(name != null) {
-				HousePriceRecord house = new HousePriceRecord(name, address, state, describe, price,areaName);
-				resultList.add(house);
-			}	
 		}
 		return resultList;
 	}
