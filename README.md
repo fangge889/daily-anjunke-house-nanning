@@ -11,4 +11,6 @@
 			<artifactId>ECharts</artifactId>
 			<version>3.0.0.6</version>
 		</dependency>
+		
 		``` 
+		
